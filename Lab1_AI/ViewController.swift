@@ -10,10 +10,21 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var searchTextField: NSTextField!
+ 
+    @IBOutlet weak var termsTableView: NSTableView!
+    @IBOutlet weak var rulesTableView: NSTableView!
+    
+    @IBOutlet weak var newTermTextField: NSTextField!
+    
+    @IBOutlet weak var newRuleConditionTextField: NSTextField!
+    @IBOutlet weak var newRuleResultTextField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        
     }
 
     override var representedObject: Any? {
@@ -22,6 +33,17 @@ class ViewController: NSViewController {
         }
     }
 
-
+    @IBAction func searchButtonWasTapped(_ sender: NSButton) {
+        print(searchTextField.cell?.title)
+    }
+    
+    @IBAction func appendNewTermButtonWasTapped(_ sender: Any) {
+        print(newTermTextField.cell?.title)
+    }
+    
+    @IBAction func appendNewRuleButtonWasTapped(_ sender: Any) {
+        print(newRuleConditionTextField.cell?.title)
+        print(newRuleResultTextField.cell?.title)
+    }
 }
 
