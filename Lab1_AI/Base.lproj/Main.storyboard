@@ -766,7 +766,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="9KU-bi-vod">
+                                                        <tableCellView identifier="cell" id="9KU-bi-vod">
                                                             <rect key="frame" x="1" y="1" width="181" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -833,7 +833,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="118" minWidth="40" maxWidth="1000" id="xtZ-bd-f52">
+                                                <tableColumn identifier="condition" width="256" minWidth="40" maxWidth="1000" id="xtZ-bd-f52">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Условие">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -846,14 +846,14 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="LvJ-5d-ieN">
-                                                            <rect key="frame" x="1" y="1" width="118" height="17"/>
+                                                        <tableCellView identifier="cell" id="LvJ-5d-ieN">
+                                                            <rect key="frame" x="1" y="1" width="256" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHd-Px-Qx7">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="118" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="EPk-X9-HJs">
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Table View Cell" allowsEditingTextAttributes="YES" id="EPk-X9-HJs">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -866,7 +866,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn width="322" minWidth="40" maxWidth="1000" id="u2a-dR-yZg">
+                                                <tableColumn identifier="result" width="184" minWidth="40" maxWidth="1000" id="u2a-dR-yZg">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Результат">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -880,11 +880,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="o3J-OW-z58">
-                                                            <rect key="frame" x="122" y="1" width="322" height="17"/>
+                                                            <rect key="frame" x="260" y="1" width="184" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="unt-j2-wCi">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="322" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="184" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="hSY-vB-HpO">
                                                                         <font key="font" metaFont="system"/>
@@ -935,7 +935,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tLl-r3-qU5">
-                                <rect key="frame" x="227" y="22" width="458" height="32"/>
+                                <rect key="frame" x="225" y="22" width="460" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Добавить правило" bezelStyle="rounded" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="plP-Gj-aYg">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
