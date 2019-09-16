@@ -8,6 +8,20 @@
 
 import Cocoa
 
+let terms = ["смс", "звонкиПоРоссии", "интернет"]
+//let rules = [("смс и звонкиПоРоссии", "Простой тариф"), ("смс или интернет", "Для Общения"), ("смс и звонкиПоРоссии и интернет", "Просто Супер")]
+
+let rules = [
+    "смс и звонкиПоРоссии": "Простой тариф",
+    "смс или интернет": "Для Общения",
+    "смс и звонкиПоРоссии и интернет": "Просто Супер"
+]
+
+enum FileName : String {
+    case Terms = "terms.txt"
+    case Rules = "rulse.txt"
+}
+
 class ViewController: NSViewController {
 
     @IBOutlet weak var searchTextField: NSTextField!
@@ -20,13 +34,20 @@ class ViewController: NSViewController {
     @IBOutlet weak var newRuleConditionTextField: NSTextField!
     @IBOutlet weak var newRuleResultTextField: NSTextField!
     
-    let terms = ["term1", "term2", "term3"]
-    let rules = [("condition1", "result1"), ("condition2", "result2"), ("condition3", "result3")]
-    let termsDS = TermsListDataSource(terms: ["term1", "term2", "term3"])
-    let rulesDS = RulesListDataSource(rules: [("condition1 & condition1 & condition1 & condition1 & condition1 & condition1", "result1"), ("condition2", "result2"), ("condition3", "result3")])
+    var rulesDict: [String : String] = [:]
+    var termsArray: [String] = []
+    
+    var termsDS: TermsListDataSource!
+    var rulesDS: RulesListDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        initFileWithDefaultTermsAndRules()
+        loadTermsAndRulesFromFiles()
+        
+        termsDS = TermsListDataSource(terms: self.termsArray)
+        rulesDS = RulesListDataSource(rules: self.rulesDict)
         
         rulesTableView.dataSource = rulesDS
         rulesTableView.delegate = rulesDS
@@ -40,28 +61,86 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+    
+    func loadTermsAndRulesFromFiles() {
+        self.termsArray = getTerms()
+        self.rulesDict = getRules()
+    }
+    
+    func initFileWithDefaultTermsAndRules() {
+        saveRules(rules: rules)
+        saveTerms(terms: terms)
+    }
+    
+    func updateTables() {
+        termsDS.terms = termsArray
+        rulesDS.rules = rulesDS.dictToArray(self.rulesDict)
+        self.termsTableView.reloadData()
+        self.rulesTableView.reloadData()
+    }
 
     @IBAction func searchButtonWasTapped(_ sender: NSButton) {
         print(searchTextField.cell?.title)
     }
     
     @IBAction func appendNewTermButtonWasTapped(_ sender: Any) {
-        print(newTermTextField.cell?.title)
+        guard let newTerm = newTermTextField.cell?.title else {
+            dialogOKCancel(message: "Error", informativeText: "new Term cannot be added to file!")
+            return
+        }
+        
+        self.termsArray.append(newTerm)
+        saveTerms(terms: self.termsArray)
+        updateTables()
     }
     
     @IBAction func appendNewRuleButtonWasTapped(_ sender: Any) {
-        print(newRuleConditionTextField.cell?.title)
-        print(newRuleResultTextField.cell?.title)
+        guard let newRuleCondition = newRuleConditionTextField.cell?.title, let newRuleResult = newRuleResultTextField.cell?.title  else {
+            dialogOKCancel(message: "Error", informativeText: "new Rule cannot be added to file!")
+            return
+        }
+        
+        self.rulesDict[newRuleCondition] = newRuleResult
+        saveRules(rules: self.rulesDict)
+        updateTables()
+    }
+
+    func dialogOKCancel(message: String, informativeText: String) {
+        let alert: NSAlert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = informativeText
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "OK")
+        let res = alert.runModal()
+//        if res == NSApplication.ModalResponse.alertFirstButtonReturn {
+//            return true
+//        }
+//        return false
     }
 }
 
 //MARK: Rules
 class RulesListDataSource : NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    let rules: [(String, String)]
+    var rules: [(String, String)]
     
-    init(rules: [(String, String)]) {
-        self.rules = rules
+    init(rules: [String: String]) {
+        var array: [(String, String)] = []
+        
+        for (key, value) in rules {
+            array.append((key, value))
+        }
+        self.rules = array
+    }
+    
+    func dictToArray(_ dict: [String : String]) -> [(String, String)] {
+        var array: [(String, String)] = []
+        
+        for (key, value) in dict {
+            array.append((key, value))
+        }
+        
+        return array
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -88,7 +167,7 @@ class RulesListDataSource : NSObject, NSTableViewDataSource, NSTableViewDelegate
 //MARK: Terms
 class TermsListDataSource : NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    let terms: [String]
+    var terms: [String]
     
     init(terms: [String]) {
         self.terms = terms
@@ -111,5 +190,37 @@ class TermsListDataSource : NSObject, NSTableViewDataSource, NSTableViewDelegate
         }
         
         return nil
+    }
+}
+
+
+//MARK: Work with files
+extension ViewController {
+    func saveTerms(terms: [String]) {
+        let fileUrl = getFileUrl(fileName: FileName.Terms.rawValue)
+        try! (terms as NSArray).write(to: fileUrl, atomically: true)
+    }
+    
+    func getTerms() -> [String] {
+        let url = getFileUrl(fileName: FileName.Terms.rawValue)
+        return NSArray(contentsOf: url)! as! [String]
+    }
+    
+    func getRules() -> [String : String] {
+        let url = getFileUrl(fileName: FileName.Rules.rawValue)
+        return NSDictionary(contentsOf: url)! as! [String : String]
+    }
+    
+    func saveRules(rules: [String : String]) {
+        let fileUrl = getFileUrl(fileName: FileName.Rules.rawValue)
+        try! (rules as NSDictionary).write(to: fileUrl, atomically: true)
+    }
+    
+    func getFileUrl(fileName: String) -> URL {
+        // get URL to the the documents directory in the sandbox
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        // add a filename
+        let fileUrl = documentsUrl.appendingPathComponent(fileName)!
+        return fileUrl
     }
 }
