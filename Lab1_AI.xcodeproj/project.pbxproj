@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8850BF72330A40200C4F2BE /* Lab1_AITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8850BF62330A40200C4F2BE /* Lab1_AITests.swift */; };
 		A8AFB4A9232E67CE0007BE83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AFB4A8232E67CE0007BE83 /* AppDelegate.swift */; };
 		A8AFB4AB232E67CE0007BE83 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AFB4AA232E67CE0007BE83 /* ViewController.swift */; };
 		A8AFB4AD232E67D00007BE83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8AFB4AC232E67D00007BE83 /* Assets.xcassets */; };
 		A8AFB4B0232E67D00007BE83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8AFB4AE232E67D00007BE83 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A8850BF92330A40200C4F2BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8AFB49D232E67CE0007BE83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A8AFB4A4232E67CE0007BE83;
+			remoteInfo = Lab1_AI;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		A8850BF42330A40100C4F2BE /* Lab1_AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lab1_AITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8850BF62330A40200C4F2BE /* Lab1_AITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lab1_AITests.swift; sourceTree = "<group>"; };
+		A8850BF82330A40200C4F2BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8AFB4A5232E67CE0007BE83 /* Lab1_AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab1_AI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8AFB4A8232E67CE0007BE83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8AFB4AA232E67CE0007BE83 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +38,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A8850BF12330A40100C4F2BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A8AFB4A2232E67CE0007BE83 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -34,10 +55,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8850BF52330A40200C4F2BE /* Lab1_AITests */ = {
+			isa = PBXGroup;
+			children = (
+				A8850BF62330A40200C4F2BE /* Lab1_AITests.swift */,
+				A8850BF82330A40200C4F2BE /* Info.plist */,
+			);
+			path = Lab1_AITests;
+			sourceTree = "<group>";
+		};
 		A8AFB49C232E67CE0007BE83 = {
 			isa = PBXGroup;
 			children = (
 				A8AFB4A7232E67CE0007BE83 /* Lab1_AI */,
+				A8850BF52330A40200C4F2BE /* Lab1_AITests */,
 				A8AFB4A6232E67CE0007BE83 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				A8AFB4A5232E67CE0007BE83 /* Lab1_AI.app */,
+				A8850BF42330A40100C4F2BE /* Lab1_AITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,6 +98,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A8850BF32330A40100C4F2BE /* Lab1_AITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8850BFD2330A40200C4F2BE /* Build configuration list for PBXNativeTarget "Lab1_AITests" */;
+			buildPhases = (
+				A8850BF02330A40100C4F2BE /* Sources */,
+				A8850BF12330A40100C4F2BE /* Frameworks */,
+				A8850BF22330A40100C4F2BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8850BFA2330A40200C4F2BE /* PBXTargetDependency */,
+			);
+			name = Lab1_AITests;
+			productName = Lab1_AITests;
+			productReference = A8850BF42330A40100C4F2BE /* Lab1_AITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A8AFB4A4232E67CE0007BE83 /* Lab1_AI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A8AFB4B5232E67D00007BE83 /* Build configuration list for PBXNativeTarget "Lab1_AI" */;
@@ -93,6 +143,10 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Alexandr;
 				TargetAttributes = {
+					A8850BF32330A40100C4F2BE = {
+						CreatedOnToolsVersion = 10.2;
+						TestTargetID = A8AFB4A4232E67CE0007BE83;
+					};
 					A8AFB4A4232E67CE0007BE83 = {
 						CreatedOnToolsVersion = 10.2;
 					};
@@ -112,11 +166,19 @@
 			projectRoot = "";
 			targets = (
 				A8AFB4A4232E67CE0007BE83 /* Lab1_AI */,
+				A8850BF32330A40100C4F2BE /* Lab1_AITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A8850BF22330A40100C4F2BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A8AFB4A3232E67CE0007BE83 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -129,6 +191,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A8850BF02330A40100C4F2BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8850BF72330A40200C4F2BE /* Lab1_AITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A8AFB4A1232E67CE0007BE83 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,6 +209,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A8850BFA2330A40200C4F2BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A8AFB4A4232E67CE0007BE83 /* Lab1_AI */;
+			targetProxy = A8850BF92330A40200C4F2BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A8AFB4AE232E67D00007BE83 /* Main.storyboard */ = {
@@ -152,6 +230,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A8850BFB2330A40200C4F2BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YG4U6S73S9;
+				INFOPLIST_FILE = Lab1_AITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "sanya.Lab1-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lab1_AI.app/Contents/MacOS/Lab1_AI";
+			};
+			name = Debug;
+		};
+		A8850BFC2330A40200C4F2BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YG4U6S73S9;
+				INFOPLIST_FILE = Lab1_AITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "sanya.Lab1-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lab1_AI.app/Contents/MacOS/Lab1_AI";
+			};
+			name = Release;
+		};
 		A8AFB4B3232E67D00007BE83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -308,6 +426,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A8850BFD2330A40200C4F2BE /* Build configuration list for PBXNativeTarget "Lab1_AITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8850BFB2330A40200C4F2BE /* Debug */,
+				A8850BFC2330A40200C4F2BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A8AFB4A0232E67CE0007BE83 /* Build configuration list for PBXProject "Lab1_AI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

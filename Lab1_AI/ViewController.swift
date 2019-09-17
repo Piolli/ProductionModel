@@ -8,14 +8,50 @@
 
 import Cocoa
 
-let terms = ["смс", "звонкиПоРоссии", "интернет"]
-//let rules = [("смс и звонкиПоРоссии", "Простой тариф"), ("смс или интернет", "Для Общения"), ("смс и звонкиПоРоссии и интернет", "Просто Супер")]
+let terms = ["минуты", "интернет", "звонкиПоРоссии", "тв", "планшет", "смс", "клиент", "звонкиПоСтранам", "ежедневнаяОплата"]
 
-let rules = [
-    "смс и звонкиПоРоссии": "Простой тариф",
-    "смс или интернет": "Для Общения",
+let plans = ["Звонки По России", "Супер (для своих)", "Простой тариф", "Нормальный тариф", "Для общения"]
+
+var rules = [
+    "минуты и интернет и звонкиПоРоссии": plans[0],
+    "минуты или интернет и звонкиПоРоссии": plans[0],
+    "интернет и звонкиПоРоссии": plans[0],
+    "минуты и звонкиПоРоссии": plans[0],
+    "минуты и смс и интернет и звонкиПоРоссии": plans[0],
+    "минуты и смс и звонкиПоРоссии": plans[0],
+    "смс и звонкиПоРоссии": plans[0],
+    "смс и звонкиПоРоссии и ежедневнаяОплата": plans[0],
+    "смс и звонкиПоРоссии или ежедневнаяОплата": plans[0],
+    
+    "клиент или смс или интернет": plans[1],
+    "клиент или смс или интернет или звонкиПоРоссии": plans[1],
+    "клиент или смс и интернет": plans[1],
+    "клиент и смс или интернет": plans[1],
+    "клиент или звонкиПоСтранам и интернет": plans[1],
+    "клиент и смс и интернет и планшет": plans[1],
     "смс и звонкиПоРоссии и интернет": "Просто Супер"
 ]
+
+func generateRules() {
+    for _ in 0...50 {
+        var resultRule = ""
+        
+        let randTermsCount = Int.random(in: 0..<terms.count)
+        for i in 0...randTermsCount {
+            let randOperator = Bool.random() ? " и " : " или "
+            resultRule.append(terms[i])
+            
+            if i != randTermsCount {
+                resultRule.append(randOperator)
+            }
+        }
+        
+        if rules[resultRule] == nil {
+            rules[resultRule] = plans.randomElement()!
+        }
+    }
+}
+
 
 enum FileName : String {
     case Terms = "terms.txt"
@@ -43,7 +79,9 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        initFileWithDefaultTermsAndRules()
+//uncomment below if you haven't files with terms and rules
+//        generateAndSaveToFilesTermsAndRules()
+        
         loadTermsAndRulesFromFiles()
         
         termsDS = TermsListDataSource(terms: self.termsArray)
@@ -54,6 +92,7 @@ class ViewController: NSViewController {
         
         termsTableView.dataSource = termsDS
         termsTableView.delegate = termsDS
+
     }
 
     override var representedObject: Any? {
@@ -67,7 +106,8 @@ class ViewController: NSViewController {
         self.rulesDict = getRules()
     }
     
-    func initFileWithDefaultTermsAndRules() {
+    func generateAndSaveToFilesTermsAndRules() {
+        generateRules()
         saveRules(rules: rules)
         saveTerms(terms: terms)
     }
@@ -80,7 +120,67 @@ class ViewController: NSViewController {
     }
 
     @IBAction func searchButtonWasTapped(_ sender: NSButton) {
-        print(searchTextField.cell?.title)
+        guard var searchText = searchTextField.cell?.title else {
+            dialogOKCancel(message: "Error", informativeText: "search text is empty!")
+            return
+        }
+        
+        searchText = normalize(text: searchText)
+        let textTerms = divideTextToPiecesAndOr(text: searchText)
+        
+        var suggestedPlans: [String] = []
+        
+        for (ruleCondition, ruleResult) in self.rulesDict {
+            let normalizeRuleCondition = normalize(text: ruleCondition)
+            let ruleTerms = divideTextToPiecesAndOr(text: normalizeRuleCondition)
+            
+            if compare(terms: textTerms, with: ruleTerms) {
+                if suggestedPlans.contains(ruleResult) {
+                    continue
+                }
+                
+                suggestedPlans.append(ruleResult)
+                dialogOKCancel(message: "Найден подходящий тариф!", informativeText: "Тариф для вас –  \(ruleResult)", alertStyle: .informational)
+            }
+        }
+    }
+    
+    func normalize(text: String) -> String {
+        return text.lowercased()
+    }
+    
+    func compare(terms terms1: [[String]], with terms2: [[String]]) -> Bool {
+        var isEquals = false
+        for termSplittedOr in terms1 {
+            for ruleTermSplittedOr in terms2 {
+                if ruleTermSplittedOr.count > termSplittedOr.count {
+                    continue
+                }
+                isEquals = true
+                
+                for termSplittedAnd in termSplittedOr {
+                    if !ruleTermSplittedOr.contains(termSplittedAnd) {
+                        isEquals = false
+                        break
+                    }
+                }
+            }
+        }
+        
+        return isEquals
+    }
+    
+    func divideTextToPiecesAndOr(text: String) -> [[String]] {
+        var termsDividedByOrOperator: [[String]] = []
+        
+        let termsSplittedOr = text.components(separatedBy: " или ")
+        
+        for termSplittedOr in termsSplittedOr {
+            let termsSplittedAnd = termSplittedOr.components(separatedBy: " и ")
+            termsDividedByOrOperator.append(termsSplittedAnd)
+        }
+        
+        return termsDividedByOrOperator
     }
     
     @IBAction func appendNewTermButtonWasTapped(_ sender: Any) {
@@ -105,17 +205,13 @@ class ViewController: NSViewController {
         updateTables()
     }
 
-    func dialogOKCancel(message: String, informativeText: String) {
+    func dialogOKCancel(message: String, informativeText: String, alertStyle: NSAlert.Style = .critical) {
         let alert: NSAlert = NSAlert()
         alert.messageText = message
         alert.informativeText = informativeText
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "OK")
-        let res = alert.runModal()
-//        if res == NSApplication.ModalResponse.alertFirstButtonReturn {
-//            return true
-//        }
-//        return false
+        alert.alertStyle = alertStyle
+        alert.addButton(withTitle: "Ok")
+        alert.runModal()
     }
 }
 
